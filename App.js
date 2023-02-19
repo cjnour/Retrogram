@@ -1,3 +1,4 @@
+/* eslint-disable no-alert */
 import React, {useState} from 'react';
 import {
   SafeAreaView,
@@ -30,7 +31,9 @@ const App = () => {
         console.warn(err);
         return false;
       }
-    } else return true;
+    } else {
+      return true;
+    }
   };
 
   const requestExternalWritePermission = async () => {
@@ -50,7 +53,9 @@ const App = () => {
         alert('Write permission err', err);
       }
       return false;
-    } else return true;
+    } else {
+      return true;
+    }
   };
 
   const captureImage = async type => {
@@ -72,13 +77,13 @@ const App = () => {
         if (response.didCancel) {
           alert('User cancelled camera picker');
           return;
-        } else if (response.errorCode == 'camera_unavailable') {
+        } else if (response.errorCode === 'camera_unavailable') {
           alert('Camera not available on device');
           return;
-        } else if (response.errorCode == 'permission') {
+        } else if (response.errorCode === 'permission') {
           alert('Permission not satisfied');
           return;
-        } else if (response.errorCode == 'others') {
+        } else if (response.errorCode === 'others') {
           alert(response.errorMessage);
           return;
         }
@@ -107,13 +112,13 @@ const App = () => {
       if (response.didCancel) {
         alert('User cancelled camera picker');
         return;
-      } else if (response.errorCode == 'camera_unavailable') {
+      } else if (response.errorCode === 'camera_unavailable') {
         alert('Camera not available on device');
         return;
-      } else if (response.errorCode == 'permission') {
+      } else if (response.errorCode === 'permission') {
         alert('Permission not satisfied');
         return;
-      } else if (response.errorCode == 'others') {
+      } else if (response.errorCode === 'others') {
         alert(response.errorMessage);
         return;
       }
@@ -128,27 +133,12 @@ const App = () => {
     });
   };
 
-  const changePhoto = () => {
-    const options = {
-      noData: true,
-    };
-    launchImageLibrary(options, response => {
-      console.log(response);
-    });
-  };
-
   return (
     <SafeAreaView style={{display: 'flex', flex: 1}}>
-      <Text style={styles.titleText}>
-        Example of Image Picker in React Native
-      </Text>
+      <View style={{backgroundColor: 'lightblue'}}>
+        <Text style={styles.titleText}>Retrogram</Text>
+      </View>
       <View style={styles.container}>
-        <Image
-          source={{
-            uri: 'data:image/jpeg;base64,' + filePath.data,
-          }}
-          style={styles.imageStyle}
-        />
         <Image source={{uri: filePath.uri}} style={styles.imageStyle} />
         {/* <Text style={styles.textStyle}>{filePath.uri}</Text> */}
         <TouchableOpacity
